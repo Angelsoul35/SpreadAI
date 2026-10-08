@@ -36,8 +36,7 @@ class ValidationResult:
             "confidence": round(self.confidence, 4),
             "passed": self.passed,
             "checks": [
-                {"name": c.name, "passed": c.passed, "detail": c.detail}
-                for c in self.checks
+                {"name": c.name, "passed": c.passed, "detail": c.detail} for c in self.checks
             ],
         }
 
@@ -61,8 +60,7 @@ def validate(
             name="accounting_identity",
             passed=balanced,
             detail=(
-                f"assets={assets:,.0f} vs L+E={liab_plus_equity:,.0f} "
-                f"(rel error {rel_error:.4f})"
+                f"assets={assets:,.0f} vs L+E={liab_plus_equity:,.0f} (rel error {rel_error:.4f})"
             ),
         )
     )

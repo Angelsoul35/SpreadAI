@@ -94,8 +94,11 @@ def make_statement(seed: int = 7) -> FinancialStatement:
     company = _COMPANIES[int(rng.integers(0, len(_COMPANIES)))]
     year = int(rng.integers(2021, 2026))
     return FinancialStatement(
-        company=company, period=f"FY{year}", currency="COP",
-        balance_sheet=bs, income_statement=is_,
+        company=company,
+        period=f"FY{year}",
+        currency="COP",
+        balance_sheet=bs,
+        income_statement=is_,
     )
 
 
@@ -114,19 +117,35 @@ def render_text(stmt: FinancialStatement) -> str:
         "BALANCE SHEET",
         "Assets",
     ]
-    for key in ["cash", "accounts_receivable", "inventory", "other_current_assets",
-                "property_plant_equipment", "other_noncurrent_assets"]:
+    for key in [
+        "cash",
+        "accounts_receivable",
+        "inventory",
+        "other_current_assets",
+        "property_plant_equipment",
+        "other_noncurrent_assets",
+    ]:
         lines.append(f"{PRIMARY_LABELS[key]}: {_fmt(getattr(bs, key))}")
     lines.append("Liabilities")
-    for key in ["accounts_payable", "short_term_debt", "other_current_liabilities",
-                "long_term_debt", "other_noncurrent_liabilities"]:
+    for key in [
+        "accounts_payable",
+        "short_term_debt",
+        "other_current_liabilities",
+        "long_term_debt",
+        "other_noncurrent_liabilities",
+    ]:
         lines.append(f"{PRIMARY_LABELS[key]}: {_fmt(getattr(bs, key))}")
     lines.append("Equity")
     for key in ["common_equity", "retained_earnings"]:
         lines.append(f"{PRIMARY_LABELS[key]}: {_fmt(getattr(bs, key))}")
     lines += ["", "INCOME STATEMENT"]
-    for key in ["revenue", "cost_of_goods_sold", "operating_expenses",
-                "interest_expense", "tax_expense"]:
+    for key in [
+        "revenue",
+        "cost_of_goods_sold",
+        "operating_expenses",
+        "interest_expense",
+        "tax_expense",
+    ]:
         lines.append(f"{PRIMARY_LABELS[key]}: {_fmt(getattr(is_, key))}")
     return "\n".join(lines)
 

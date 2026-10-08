@@ -55,12 +55,7 @@ class BalanceSheet(BaseModel):
 
     @property
     def total_current_assets(self) -> float:
-        return (
-            self.cash
-            + self.accounts_receivable
-            + self.inventory
-            + self.other_current_assets
-        )
+        return self.cash + self.accounts_receivable + self.inventory + self.other_current_assets
 
     @property
     def total_noncurrent_assets(self) -> float:
@@ -72,9 +67,7 @@ class BalanceSheet(BaseModel):
 
     @property
     def total_current_liabilities(self) -> float:
-        return (
-            self.accounts_payable + self.short_term_debt + self.other_current_liabilities
-        )
+        return self.accounts_payable + self.short_term_debt + self.other_current_liabilities
 
     @property
     def total_noncurrent_liabilities(self) -> float:

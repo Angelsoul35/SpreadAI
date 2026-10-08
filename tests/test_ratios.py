@@ -12,9 +12,7 @@ def test_ratios_on_generated_statement(statement):
 
 
 def test_ratios_handle_zero_denominators():
-    empty = FinancialStatement(
-        balance_sheet=BalanceSheet(), income_statement=IncomeStatement()
-    )
+    empty = FinancialStatement(balance_sheet=BalanceSheet(), income_statement=IncomeStatement())
     r = compute_ratios(empty)
     assert r["current_ratio"] is None  # no current liabilities
     assert r["net_margin"] is None  # no revenue

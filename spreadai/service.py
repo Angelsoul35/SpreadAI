@@ -24,9 +24,7 @@ class SpreadService:
 
     def _finalize(self, extraction: ExtractionResult) -> dict:
         statement = extraction.statement
-        validation = validate(
-            statement, extraction.field_coverage, self.settings.balance_tolerance
-        )
+        validation = validate(statement, extraction.field_coverage, self.settings.balance_tolerance)
         ratios = compute_ratios(statement)
 
         needs_review = (
@@ -36,7 +34,9 @@ class SpreadService:
 
         if self.settings.memo_mode == "llm" or self.memo_llm is not None:
             memo = llm_memo(
-                statement, validation, llm=self.memo_llm,
+                statement,
+                validation,
+                llm=self.memo_llm,
                 provider_spec=self.settings.llm_providers,
             )
         else:

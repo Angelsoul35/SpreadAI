@@ -25,8 +25,13 @@ class AnthropicClient:
 
     name = "anthropic"
 
-    def __init__(self, model: str = "claude-sonnet-5-5", api_key: str | None = None,
-                 base_url: str = "https://api.anthropic.com", timeout: float = DEFAULT_TIMEOUT):
+    def __init__(
+        self,
+        model: str = "claude-sonnet-5-5",
+        api_key: str | None = None,
+        base_url: str = "https://api.anthropic.com",
+        timeout: float = DEFAULT_TIMEOUT,
+    ):
         self.model = model
         self._key = api_key or os.getenv("ANTHROPIC_API_KEY", "")
         self._url = base_url.rstrip("/") + "/v1/messages"
@@ -62,8 +67,15 @@ class AnthropicClient:
 class OpenAICompatibleClient:
     """OpenAI-style /chat/completions API. Also used for DeepSeek and others."""
 
-    def __init__(self, name: str, model: str, api_key_env: str, base_url: str,
-                 api_key: str | None = None, timeout: float = DEFAULT_TIMEOUT):
+    def __init__(
+        self,
+        name: str,
+        model: str,
+        api_key_env: str,
+        base_url: str,
+        api_key: str | None = None,
+        timeout: float = DEFAULT_TIMEOUT,
+    ):
         self.name = name
         self.model = model
         self._key = api_key or os.getenv(api_key_env, "")
@@ -100,9 +112,7 @@ class OpenAICompatibleClient:
             raise LLMError(f"{self.name}: {exc}") from exc
 
 
-def OpenAIClient(
-    model: str = "gpt-4o-mini", api_key: str | None = None
-) -> OpenAICompatibleClient:
+def OpenAIClient(model: str = "gpt-4o-mini", api_key: str | None = None) -> OpenAICompatibleClient:
     return OpenAICompatibleClient(
         "openai", model, "OPENAI_API_KEY", "https://api.openai.com/v1", api_key
     )
@@ -121,8 +131,12 @@ class GeminiClient:
 
     name = "gemini"
 
-    def __init__(self, model: str = "gemini-1.5-flash", api_key: str | None = None,
-                 timeout: float = DEFAULT_TIMEOUT):
+    def __init__(
+        self,
+        model: str = "gemini-1.5-flash",
+        api_key: str | None = None,
+        timeout: float = DEFAULT_TIMEOUT,
+    ):
         self.model = model
         self._key = api_key or os.getenv("GEMINI_API_KEY", "")
         self._timeout = timeout
@@ -147,10 +161,7 @@ class GeminiClient:
             )
             resp.raise_for_status()
             data = resp.json()
-            text = "".join(
-                p.get("text", "")
-                for p in data["candidates"][0]["content"]["parts"]
-            )
+            text = "".join(p.get("text", "") for p in data["candidates"][0]["content"]["parts"])
             return LLMResult(text=text, provider=self.name, model=self.model)
         except (httpx.HTTPError, KeyError, IndexError, ValueError) as exc:
             raise LLMError(f"gemini: {exc}") from exc
@@ -161,8 +172,9 @@ class OllamaClient:
 
     name = "ollama"
 
-    def __init__(self, model: str = "llama3.1", base_url: str | None = None,
-                 timeout: float = DEFAULT_TIMEOUT):
+    def __init__(
+        self, model: str = "llama3.1", base_url: str | None = None, timeout: float = DEFAULT_TIMEOUT
+    ):
         self.model = model
         self._url = (base_url or os.getenv("OLLAMA_HOST", "http://localhost:11434")).rstrip("/")
         self._timeout = timeout
@@ -184,9 +196,7 @@ class OllamaClient:
             )
             resp.raise_for_status()
             data = resp.json()
-            return LLMResult(
-                text=data["message"]["content"], provider=self.name, model=self.model
-            )
+            return LLMResult(text=data["message"]["content"], provider=self.name, model=self.model)
         except (httpx.HTTPError, KeyError, ValueError) as exc:
             raise LLMError(f"ollama: {exc}") from exc
 

@@ -43,9 +43,7 @@ def parse_pdf(path: str | Path, use_ocr_fallback: bool = True) -> ExtractionResu
     if not text and use_ocr_fallback:
         text = ocr_pdf(path)
     if not text:
-        raise RuntimeError(
-            f"No text found in {path}. It may be a scanned PDF; enable OCR."
-        )
+        raise RuntimeError(f"No text found in {path}. It may be a scanned PDF; enable OCR.")
     result = parse_text(text)
     result.method = "pdf"
     return result

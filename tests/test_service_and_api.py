@@ -64,8 +64,6 @@ def test_api_spread_pdf_upload():
     with tempfile.TemporaryDirectory() as d:
         path = render_pdf(statement, str(Path(d) / "s.pdf"))
         with open(path, "rb") as fh:
-            response = client.post(
-                "/spread/pdf", files={"file": ("s.pdf", fh, "application/pdf")}
-            )
+            response = client.post("/spread/pdf", files={"file": ("s.pdf", fh, "application/pdf")})
     assert response.status_code == 200, response.text
     assert response.json()["method"] == "pdf"

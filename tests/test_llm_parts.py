@@ -31,8 +31,12 @@ def test_build_llm_cascade():
 
 def test_llm_extractor_parses_json():
     payload = {
-        "company": "Fake Co", "period": "FY2025", "currency": "COP",
-        "cash": 100, "revenue": 1000, "cost_of_goods_sold": 600,
+        "company": "Fake Co",
+        "period": "FY2025",
+        "currency": "COP",
+        "cash": 100,
+        "revenue": 1000,
+        "cost_of_goods_sold": 600,
     }
     extractor = LLMExtractor(llm=FakeLLM(json.dumps(payload)))
     result = extractor.extract("messy statement text")
