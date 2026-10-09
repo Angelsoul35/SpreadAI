@@ -11,13 +11,17 @@ entrevista. El código y la documentación técnica están en inglés; aquí va 
    puntaje de confianza, la revisión humana y los ratios de crédito.
 3. [Preguntas de entrevista](03-preguntas-de-entrevista.md) — preguntas típicas con
    respuestas.
+4. [Validación con datos reales](04-validacion-datos-reales.md) — correr el pipeline sobre
+   estados financieros reales (American Bankruptcy), con baseline, validación cruzada,
+   held-out, control negativo y el veredicto de generalización (ni sobreajuste ni subajuste).
 
 ## Cómo correrlo mientras estudias
 
 ```bash
 make install
-make demo     # genera un estado, lo "spread", imprime ratios y memo
-make test     # 24 pruebas
+make demo       # genera un estado, lo "spread", imprime ratios y memo
+make test       # 34 pruebas
+make benchmark  # valida el pipeline sobre el panel real de empresas
 ```
 
 El concepto central: **"spread" (vaciar) un estado financiero a un formato estándar,

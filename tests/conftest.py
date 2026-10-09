@@ -19,3 +19,17 @@ def statement_text(statement):
 @pytest.fixture
 def service():
     return SpreadService()
+
+
+@pytest.fixture(scope="session")
+def real_train():
+    from spreadai.real_data import load_dataset
+
+    return load_dataset("train")
+
+
+@pytest.fixture(scope="session")
+def real_test():
+    from spreadai.real_data import load_dataset
+
+    return load_dataset("test")

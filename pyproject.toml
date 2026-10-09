@@ -22,7 +22,8 @@ dependencies = [
 
 [project.optional-dependencies]
 ocr = ["pytesseract>=0.3.13", "pdf2image>=1.17"]
-dev = ["pytest>=8.3", "pytest-cov>=6.0", "ruff>=0.8", "httpx>=0.28"]
+research = ["scikit-learn>=1.5"]
+dev = ["pytest>=8.3", "pytest-cov>=6.0", "ruff>=0.8", "httpx>=0.28", "scikit-learn>=1.5"]
 
 [project.scripts]
 spreadai = "spreadai.cli:main"

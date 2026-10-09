@@ -35,6 +35,13 @@ jobs:
       - name: Smoke-test the CLI
         run: python -m spreadai.cli demo
 
+      - name: Real-data benchmark (generalization check)
+        run: python -m spreadai.real_benchmark
+        env:
+          OMP_NUM_THREADS: "2"
+          OPENBLAS_NUM_THREADS: "2"
+          MKL_NUM_THREADS: "2"
+
   security:
     name: Security scans
     runs-on: ubuntu-latest

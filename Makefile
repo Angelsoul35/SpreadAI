@@ -1,4 +1,4 @@
-.PHONY: install test lint run demo sample clean
+.PHONY: install test lint run demo sample benchmark clean
 
 install:
 	pip install -e ".[dev]"
@@ -17,6 +17,9 @@ sample:          ## Generate a sample financial-statement PDF in out/
 
 demo:            ## Generate a statement, spread it, and print the result
 	python -m spreadai.cli demo
+
+benchmark:       ## Spread the real American Bankruptcy panel and score generalization
+	OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 python -m spreadai.real_benchmark
 
 clean:
 	rm -rf .pytest_cache .ruff_cache .coverage htmlcov out/*.pdf
